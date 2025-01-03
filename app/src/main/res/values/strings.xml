@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyFirstApp</string>
+    <string name="fio">Комов Кирилл Дмитриевич, БПИ233</string>
+    <string name="instruction">Click anywhere to continue</string>
+</resources>
