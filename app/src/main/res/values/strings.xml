@@ -2,4 +2,8 @@
     <string name="app_name">MyFirstApp</string>
     <string name="fio">Комов Кирилл Дмитриевич, БПИ233</string>
     <string name="instruction">Click anywhere to continue</string>
+
+    <string name="button_prompt">Show text</string>
+    <string name="edittext_prompt">Write text</string>
+    <string name="textview_prompt">Your text will be shown here</string>
 </resources>
