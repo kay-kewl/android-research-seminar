@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class StartActivity extends AppCompatActivity {
 
-    private static final int INSTRUCTION_DELAY_MS = 1000;
-    private TextView instructionText;
+    private EditText inputText;
+    private Button nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,36 +32,25 @@ public class StartActivity extends AppCompatActivity {
             return insets;
         });
 
-        View startLayout = findViewById(R.id.startLayout);
-        instructionText = findViewById(R.id.instructionText);
+        inputText = findViewById(R.id.inputText);
+        nextButton = findViewById(R.id.nextButton);
 
-        startLayout.setOnClickListener(new View.OnClickListener() {
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                navigateToMain();
+            public void onClick(View v) {
+                String text = inputText.getText().toString();
+                if (text.isEmpty()) {
+                    Toast.makeText(StartActivity.this, "Cannot be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    navigateToMain(text);
+                }
             }
         });
-
-        startLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                showInstructionText();
-            }
-        }, INSTRUCTION_DELAY_MS);
     }
 
-    private void navigateToMain() {
+    private void navigateToMain(String text) {
         Intent intent = new Intent(StartActivity.this, MainActivity.class);
+        intent.putExtra("inputText", text);
         startActivity(intent);
-        finish();
-    }
-
-    private void showInstructionText() {
-        Animation fadeIn = new AlphaAnimation(0, 1);
-        fadeIn.setDuration(500);
-        fadeIn.setFillAfter(true);
-
-        instructionText.startAnimation(fadeIn);
-        instructionText.setVisibility(View.VISIBLE);
     }
 }

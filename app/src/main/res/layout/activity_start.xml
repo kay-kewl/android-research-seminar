@@ -6,23 +6,44 @@
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/startText"
+        android:id="@+id/activityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/first_activity"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:id="@+id/fioText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fio"
         android:textSize="24sp"
         android:textAlignment="center"
-        android:layout_centerInParent="true"/>
+        android:layout_below="@id/activityName"
+        android:layout_marginTop="100dp"/>
 
-    <TextView
-        android:id="@+id/instructionText"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/inputText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/instruction"
-        android:textColor="@color/gray"
-        android:textSize="20sp"
-        android:visibility="invisible"
-        android:layout_alignParentBottom="true"
+        android:hint="@string/edittext_start_prompt"
+        android:layout_below="@id/fioText"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_next"
+        android:textSize="24sp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp" />
 </RelativeLayout>

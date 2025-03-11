@@ -2,8 +2,15 @@
     <string name="app_name">MyFirstApp</string>
     <string name="fio">Комов Кирилл Дмитриевич, БПИ233</string>
     <string name="instruction">Click anywhere to continue</string>
+    <string name="first_activity">1 activity</string>
 
     <string name="button_prompt">Show text</string>
     <string name="edittext_prompt">Write text</string>
-    <string name="textview_prompt">Your text will be shown here</string>
+    <string name="textview_prompt">Your typed:</string>
+    <string name="edittext_start_prompt">Enter text here</string>
+    <string name="button_next">Next</string>
+    <string name="second_activity">2 activity</string>
+    <string name="button_back">Return</string>
+    <string name="button_share">Share</string>
+    <string name="button_copy">Copy</string>
 </resources>
