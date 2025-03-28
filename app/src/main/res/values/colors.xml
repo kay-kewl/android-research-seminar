@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default Theme Colors -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Общие цвета интерфейса -->
+    <color name="card_background">#FFFFFFFF</color>
+    <color name="card_background_dark">#FF303030</color>
+    
+    <!-- Ocean Theme Colors -->
+    <color name="ocean_primary">#FF1976D2</color>
+    <color name="ocean_primary_variant">#FF0D47A1</color>
+    <color name="ocean_secondary">#FF26C6DA</color>
+    <color name="ocean_secondary_variant">#FF00838F</color>
+    <color name="ocean_background">#FFE3F2FD</color>
+    <color name="ocean_surface">#FFFFFFFF</color>
+    <color name="ocean_error">#FFB00020</color>
+    <color name="ocean_on_primary">#FFFFFFFF</color>
+    <color name="ocean_on_secondary">#FF000000</color>
+    <color name="ocean_on_background">#FF000000</color>
+    <color name="ocean_on_surface">#FF000000</color>
+    <color name="ocean_on_error">#FFFFFFFF</color>
+    
+    <!-- Sunset Theme Colors -->
+    <color name="sunset_primary">#FFFF5722</color>
+    <color name="sunset_primary_variant">#FFE64A19</color>
+    <color name="sunset_secondary">#FFFFB74D</color>
+    <color name="sunset_secondary_variant">#FFF57C00</color>
+    <color name="sunset_background">#FFFFF8E1</color>
+    <color name="sunset_surface">#FFFFFFFF</color>
+    <color name="sunset_error">#FFB00020</color>
+    <color name="sunset_on_primary">#FFFFFFFF</color>
+    <color name="sunset_on_secondary">#FF000000</color>
+    <color name="sunset_on_background">#FF000000</color>
+    <color name="sunset_on_surface">#FF000000</color>
+    <color name="sunset_on_error">#FFFFFFFF</color>
+</resources>

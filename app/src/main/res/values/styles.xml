@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base styles for UI components -->
+    <style name="Widget.MyApp.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">12dp</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <style name="Widget.MyApp.Button.Ocean">
+        <item name="backgroundTint">@color/ocean_primary</item>
+        <item name="android:textColor">@color/ocean_on_primary</item>
+    </style>
+
+    <style name="Widget.MyApp.Button.Sunset">
+        <item name="backgroundTint">@color/sunset_primary</item>
+        <item name="android:textColor">@color/sunset_on_primary</item>
+    </style>
+
+    <style name="Widget.MyApp.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <style name="Widget.MyApp.Card.Ocean">
+        <item name="cardBackgroundColor">@color/ocean_surface</item>
+    </style>
+
+    <style name="Widget.MyApp.Card.Sunset">
+        <item name="cardBackgroundColor">@color/sunset_surface</item>
+    </style>
+
+    <style name="TextAppearance.MyApp.Headline" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.MyApp.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">16sp</item>
+    </style>
+</resources>

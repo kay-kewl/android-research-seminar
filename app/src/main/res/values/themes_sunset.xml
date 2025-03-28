@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sunset theme. -->
+    <style name="Theme.MyApplication.Sunset" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/sunset_primary</item>
+        <item name="colorPrimaryVariant">@color/sunset_primary_variant</item>
+        <item name="colorOnPrimary">@color/sunset_on_primary</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/sunset_secondary</item>
+        <item name="colorSecondaryVariant">@color/sunset_secondary_variant</item>
+        <item name="colorOnSecondary">@color/sunset_on_secondary</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Background colors -->
+        <item name="android:colorBackground">@color/sunset_background</item>
+        <item name="colorSurface">@color/sunset_surface</item>
+        <item name="colorError">@color/sunset_error</item>
+        <item name="colorOnBackground">@color/sunset_on_background</item>
+        <item name="colorOnSurface">@color/sunset_on_surface</item>
+        <item name="colorOnError">@color/sunset_on_error</item>
+        
+        <!-- Component styles -->
+        <item name="materialButtonStyle">@style/Widget.MyApp.Button.Sunset</item>
+        <item name="materialCardViewStyle">@style/Widget.MyApp.Card.Sunset</item>
+    </style>
+</resources>
