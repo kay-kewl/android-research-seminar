@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="sunset_on_background">#E0E0E0</color>
+    <color name="sunset_on_surface">#E0E0E0</color>
+    <color name="ocean_on_background">#E0E0E0</color>
+    <color name="ocean_on_surface">#E0E0E0</color>
+    <color name="colorOnSurface">#E0E0E0</color>
+
+    <!-- Приоритет задач -->
+    <color name="priority_low">#4CAF50</color>    <!-- Зеленый -->
+    <color name="priority_medium">#FFC107</color> <!-- Желтый -->
+    <color name="priority_high">#F44336</color>   <!-- Красный -->
+</resources> 

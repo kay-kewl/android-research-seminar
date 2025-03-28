@@ -38,4 +38,7 @@
     <style name="TextAppearance.MyApp.Body" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="Theme.MyApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

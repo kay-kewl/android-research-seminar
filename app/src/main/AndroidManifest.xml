@@ -21,43 +21,15 @@
         tools:targetApi="31">
             
         <activity
-            android:name=".activities.FactSettingsActivity"
+            android:name=".activities.TaskManagerActivity"
             android:exported="true"
-            android:label="@string/fact_settings">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Fact Widget -->
-        <receiver
-            android:name=".widget.FactWidgetProvider"
-            android:exported="true"
-            android:enabled="true"
-            android:label="@string/fact_widget_name">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
-                <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
-                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
-                <action android:name="android.appwidget.action.APPWIDGET_OPTIONS_CHANGED" />
-                <action android:name="com.example.myapplication.ACTION_UPDATE_WIDGET" />
-                <action android:name="com.example.myapplication.ACTION_SHARE_FACT" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/fact_widget_info" />
-        </receiver>
-
-        <!-- Fact Update Service -->
-        <service
-            android:name=".service.FactUpdateService"
-            android:enabled="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-
+        
     </application>
 
 </manifest>

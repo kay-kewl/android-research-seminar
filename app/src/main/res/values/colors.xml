@@ -65,4 +65,9 @@
     <color name="music_category">#673AB7</color>
     <color name="literature_category">#8BC34A</color>
     <color name="all_category">#2196F3</color>
+    
+    <!-- Приоритет задач -->
+    <color name="priority_low">#4CAF50</color>    <!-- Зеленый -->
+    <color name="priority_medium">#FFC107</color> <!-- Желтый -->
+    <color name="priority_high">#F44336</color>   <!-- Красный -->
 </resources>

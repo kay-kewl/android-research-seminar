@@ -1,39 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Widget</string>
+    <string name="app_name">Task Manager</string>
 
-    <!-- Random Fact Widget Strings -->
-    <string name="fact_widget_name">Random Fact</string>
-    <string name="share_fact">Share Fact</string>
-    <string name="next_fact">Next Fact</string>
-    <string name="loading_fact">Loading fact...</string>
-    <string name="widget_title">Interesting Fact</string>
-    <string name="fact_settings">Fact Settings</string>
-    <string name="category_science">Science</string>
-    <string name="category_history">History</string>
-    <string name="category_animals">Animals</string>
-    <string name="category_geography">Geography</string>
-    <string name="category_physics">Physics</string>
-    <string name="category_astronomy">Astronomy</string>
-    <string name="category_economics">Economics</string>
-    <string name="category_linguistics">Linguistics</string>
-    <string name="category_music">Music</string>
-    <string name="category_literature">Literature</string>
-    <string name="category_all">All Categories</string>
-    <string name="update_frequency">Update Frequency</string>
-    <string name="update_daily">Daily</string>
-    <string name="update_hourly">Hourly</string>
-    <string name="update_on_tap">On Tap Only</string>
-    <string name="take_quiz">Take a Quiz</string>
-    <string name="quiz_title">Fact Quiz</string>
-    <string name="quiz_question">Is this fact true or false?</string>
-    <string name="quiz_true">True</string>
-    <string name="quiz_false">False</string>
-    <string name="quiz_correct">Correct!</string>
-    <string name="quiz_incorrect">Incorrect!</string>
-    <string name="quiz_next">Next Question</string>
-    <string name="quiz_score">Score: %1$d / %2$d</string>
-    <string name="fact_source">Source: %1$s</string>
-    <string name="category_selection">Category Selection</string>
-    <string name="multi_category_info">Select multiple categories to display facts from</string>
-    <string name="save_settings">Save Settings</string>
+    <!-- Task strings -->
+    <string name="no_tasks">Нет задач</string>
+    <string name="add_task">Добавить задачу</string>
+    <string name="task_title">Название задачи</string>
+    <string name="task_description">Описание задачи</string>
+    <string name="priority">Приоритет</string>
+    <string name="priority_low">Низкий</string>
+    <string name="priority_medium">Средний</string>
+    <string name="priority_high">Высокий</string>
+    <string name="task_add">Добавить</string>
+    <string name="task_edit">Редактировать</string>
+    <string name="task_save">Сохранить</string>
+    <string name="task_cancel">Отмена</string>
+    <string name="task_delete">Удалить</string>
+    <string name="task_mark_complete">Отметить как выполненную</string>
+    
+    <!-- Menu strings -->
+    <string name="menu_show_completed">Показать выполненные</string>
+    <string name="menu_sort_by_priority">Сортировать по приоритету</string>
+    <string name="menu_toggle_notifications">Уведомления</string>
+    
+    <!-- Context menu strings -->
+    <string name="context_menu_mark_complete">Отметить как выполненную</string>
+    <string name="context_menu_delete">Удалить</string>
+    <string name="context_menu_edit">Редактировать</string>
+    
+    <!-- Other strings -->
+    <string name="empty_title_error">Название не может быть пустым</string>
+    <string name="task_deleted">Задача удалена</string>
+    <string name="task_completed">Задача выполнена</string>
+    <string name="notifications_on">Уведомления включены</string>
+    <string name="notifications_off">Уведомления выключены</string>
 </resources>

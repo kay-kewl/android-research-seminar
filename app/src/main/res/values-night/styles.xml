@@ -3,12 +3,12 @@
     <!-- Night mode styles for UI components -->
     <style name="Widget.MyApp.Button.Ocean">
         <item name="backgroundTint">@color/ocean_primary</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/colorOnSurface</item>
     </style>
 
     <style name="Widget.MyApp.Button.Sunset">
         <item name="backgroundTint">@color/sunset_primary</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/colorOnSurface</item>
     </style>
 
     <style name="Widget.MyApp.Card.Ocean">
@@ -21,11 +21,15 @@
 
     <style name="TextAppearance.MyApp.Headline" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textColor">@color/colorOnSurface</item>
     </style>
 
     <style name="TextAppearance.MyApp.Body" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textColor">@color/colorOnSurface</item>
+    </style>
+    
+    <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColor">@color/colorOnSurface</item>
     </style>
 </resources>
