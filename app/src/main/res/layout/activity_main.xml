@@ -1,130 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainLayout"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#000033">
+    tools:context=".MainActivity">
 
-    <!-- Top Info Section -->
-    <LinearLayout
-        android:id="@+id/topInfoLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true">
-
-        <TextView
-            android:id="@+id/questionNumberText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/question_text"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/scoreText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/score_text"
-            android:textColor="#FFD700"
-            android:textSize="18sp"/>
-    </LinearLayout>
-
-    <!-- Question Section -->
     <TextView
-        android:id="@+id/questionText"
-        android:layout_width="match_parent"
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/topInfoLayout"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
-        android:gravity="center"
-        android:textColor="#FFFFFF"
+        android:text="@string/app_title"
         android:textSize="24sp"
-        android:padding="16dp"
-        android:background="#000066"/>
+        android:textStyle="bold"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Answer Buttons -->
-    <LinearLayout
-        android:id="@+id/answersLayout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/description_text"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/questionText"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp">
+        android:text="@string/app_description"
+        android:textAlignment="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_text" />
 
-        <Button
-            android:id="@+id/answerButton1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/answer_button_background"
-            android:textColor="#FFFFFF"/>
-
-        <Button
-            android:id="@+id/answerButton2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/answer_button_background"
-            android:textColor="#FFFFFF"/>
-
-        <Button
-            android:id="@+id/answerButton3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/answer_button_background"
-            android:textColor="#FFFFFF"/>
-
-        <Button
-            android:id="@+id/answerButton4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/answer_button_background"
-            android:textColor="#FFFFFF"/>
-    </LinearLayout>
-
-    <!-- Hints Section -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/send_notification_button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:text="@string/send_notification"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/hint5050Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="4dp"
-            android:text="@string/hint_5050"
-            android:background="@drawable/hint_button_background"
-            android:textColor="#FFFFFF"/>
-
-        <Button
-            android:id="@+id/hintAudienceButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:text="@string/hint_audience"
-            android:background="@drawable/hint_button_background"
-            android:textColor="#FFFFFF"/>
-
-        <Button
-            android:id="@+id/hintPhoneButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="4dp"
-            android:text="@string/hint_phone"
-            android:background="@drawable/hint_button_background"
-            android:textColor="#FFFFFF"/>
-    </LinearLayout>
-
-</RelativeLayout> 
+</androidx.constraintlayout.widget.ConstraintLayout> 
