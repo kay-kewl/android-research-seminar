@@ -6,174 +6,155 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/previewCard"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/themeSelectorContainer"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHeight_percent="0.65"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ScrollView
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@android:color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <!-- Фильтры по жанрам -->
+            <HorizontalScrollView
+                android:id="@+id/genre_scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="8dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_genre" />
+
+            </HorizontalScrollView>
+
+            <!-- Дополнительные фильтры -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/filter_chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/genre_scroll_view"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_all"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/all_movies" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_watched"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/watched" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_unwatched"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unwatched" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_favorite"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/favorites" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Список фильмов -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_movies"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/filter_chip_group"
+                android:clipToPadding="false"
+                android:padding="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_movie" />
+
+            <!-- Пустое состояние -->
+            <LinearLayout
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/filter_chip_group"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/empty_list"
+                    android:src="@drawable/ic_empty_list" />
 
                 <TextView
-                    android:id="@+id/headlineText"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:text="Theme Preview"
-                    android:textAppearance="@style/TextAppearance.MyApp.Headline" />
+                    android:layout_marginTop="16dp"
+                    android:text="@string/no_movies_found"
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/bodyText"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:text="This is a preview of the selected theme. You can see how different UI elements look with this theme applied."
-                    android:textAppearance="@style/TextAppearance.MyApp.Body" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/primaryButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:text="Primary Button" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/secondaryButton"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:text="Secondary Button" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:id="@+id/cardView"
-                    app:cardBackgroundColor="@android:color/white"
-                    app:cardElevation="2dp"
-                    app:contentPadding="0dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        android:background="@android:color/white">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Card Title"
-                            android:id="@+id/cardTitle"
-                            android:textColor="@android:color/black"
-                            android:layout_marginBottom="8dp"
-                            android:textSize="18sp" 
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="This is a card with some content to demonstrate how cards look with the current theme."
-                            android:textColor="@android:color/black"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Input field">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:text="Checkbox" />
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp">
-
-                    <RadioButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Radio Option 1" />
-
-                    <RadioButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Radio Option 2" />
-                </RadioGroup>
-
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Switch" />
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:paddingStart="32dp"
+                    android:paddingEnd="32dp"
+                    android:text="@string/add_movies_hint"
+                    android:textSize="14sp" />
 
             </LinearLayout>
-        </ScrollView>
-    </androidx.cardview.widget.CardView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/themeSelectorContainer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/themeTitle"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_movie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Выберите тему"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_add"
+            android:contentDescription="@string/add_movie" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/themeRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            android:layout_marginTop="8dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/themeTitle"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

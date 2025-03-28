@@ -1,265 +1,285 @@
 package com.example.myapplication;
 
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.Typeface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputLayout;
+import com.example.myapplication.adapter.GenreAdapter;
+import com.example.myapplication.adapter.MovieAdapter;
+import com.example.myapplication.model.Genre;
+import com.example.myapplication.model.Movie;
+import com.example.myapplication.viewmodel.MovieViewModel;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.OnMovieClickListener, GenreAdapter.OnGenreClickListener {
 
-    private RecyclerView themeRecyclerView;
-    private SharedPreferences preferences;
-    private static final String PREF_NAME = "ThemePrefs";
-    private static final String SELECTED_THEME = "selected_theme";
-    private int currentThemePosition;
+    private MovieViewModel movieViewModel;
+    private MovieAdapter movieAdapter;
+    private GenreAdapter genreAdapter;
+    private RecyclerView recyclerMovies;
+    private RecyclerView recyclerGenres;
+    private ChipGroup filterChipGroup;
+    private View emptyView;
 
-    private final List<ThemeItem> themeItems = Arrays.asList(
-            new ThemeItem("Default", R.style.Theme_MyApplication, R.color.purple_500),
-            new ThemeItem("Ocean", R.style.Theme_MyApplication_Ocean, R.color.ocean_primary),
-            new ThemeItem("Sunset", R.style.Theme_MyApplication_Sunset, R.color.sunset_primary)
-    );
+    private static final int ADD_MOVIE_REQUEST_CODE = 1;
+    private static final int EDIT_MOVIE_REQUEST_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        currentThemePosition = preferences.getInt(SELECTED_THEME, 0);
-        setTheme(themeItems.get(currentThemePosition).themeResId);
-        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        standardizePreviewElements();
-        setupThemeSelector();
-    }
 
-    private void setupThemeSelector() {
-        themeRecyclerView = findViewById(R.id.themeRecyclerView);
+        // Настраиваем Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         
-        ThemeAdapter adapter = new ThemeAdapter(themeItems, currentThemePosition, position -> {
-            applyTheme(position);
+        // Инициализируем компоненты UI
+        recyclerMovies = findViewById(R.id.recycler_movies);
+        recyclerGenres = findViewById(R.id.recycler_genres);
+        filterChipGroup = findViewById(R.id.filter_chip_group);
+        emptyView = findViewById(R.id.empty_view);
+        FloatingActionButton fabAddMovie = findViewById(R.id.fab_add_movie);
+
+        // Настраиваем адаптеры и RecyclerView
+        setupMovieRecyclerView();
+        setupGenreRecyclerView();
+        
+        // Настраиваем ViewModel и наблюдателей
+        movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+        
+        // Наблюдаем за списком фильмов с учетом фильтров
+        movieViewModel.getFilteredMovies().observe(this, movies -> {
+            movieAdapter.setMovies(movies);
+            updateEmptyView(movies != null && movies.isEmpty());
         });
         
-        themeRecyclerView.setAdapter(adapter);
+        // Наблюдаем за списком жанров
+        movieViewModel.getAllGenres().observe(this, genres -> {
+            genreAdapter.setGenres(genres);
+        });
+
+        // Настраиваем слушатели для фильтрации
+        setupFilterListeners();
         
-        themeRecyclerView.scrollToPosition(currentThemePosition);
+        // Настраиваем FAB для добавления фильма
+        fabAddMovie.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AddEditMovieActivity.class);
+            startActivityForResult(intent, ADD_MOVIE_REQUEST_CODE);
+        });
     }
 
-    private void standardizePreviewElements() {
-        standardizeButtons();
-        standardizeCardAndText();
+    private void setupMovieRecyclerView() {
+        movieAdapter = new MovieAdapter(this, this);
+        recyclerMovies.setLayoutManager(new LinearLayoutManager(this));
+        recyclerMovies.setHasFixedSize(true);
+        recyclerMovies.setAdapter(movieAdapter);
     }
 
-    private void standardizeButtons() {
-        MaterialButton primaryButton = findViewById(R.id.primaryButton);
-        MaterialButton secondaryButton = findViewById(R.id.secondaryButton);
-        
-        int buttonHeight = dpToPx(48);
-        
-        ViewGroup.LayoutParams primaryParams = primaryButton.getLayoutParams();
-        primaryParams.height = buttonHeight;
-        primaryButton.setLayoutParams(primaryParams);
-        
-        ViewGroup.LayoutParams secondaryParams = secondaryButton.getLayoutParams();
-        secondaryParams.height = buttonHeight;
-        secondaryButton.setLayoutParams(secondaryParams);
-        
-        int paddingHorizontal = dpToPx(16);
-        int paddingVertical = dpToPx(8);
-        
-        primaryButton.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
-        secondaryButton.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
-        
-        primaryButton.setTextSize(14);
-        secondaryButton.setTextSize(14);
+    private void setupGenreRecyclerView() {
+        genreAdapter = new GenreAdapter(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerGenres.setLayoutManager(layoutManager);
+        recyclerGenres.setHasFixedSize(true);
+        recyclerGenres.setAdapter(genreAdapter);
     }
-    
-    private void standardizeCardAndText() {
-        MaterialCardView cardView = findViewById(R.id.cardView);
+
+    private void setupFilterListeners() {
+        // Настраиваем слушатели для чипов фильтрации
+        Chip chipAll = findViewById(R.id.chip_all);
+        Chip chipWatched = findViewById(R.id.chip_watched);
+        Chip chipUnwatched = findViewById(R.id.chip_unwatched);
+        Chip chipFavorite = findViewById(R.id.chip_favorite);
+        
+        // Ensure All is selected by default
+        chipAll.setChecked(true);
+        movieViewModel.setFilter(MovieViewModel.FILTER_ALL);
+        
+        // Use OnCheckedChangeListener to handle category selection logic
+        chipAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            // Only process when the chip is checked (not when unchecked)
+            if (isChecked) {
+                // Uncheck other chips
+                chipWatched.setChecked(false);
+                chipUnwatched.setChecked(false);
+                chipFavorite.setChecked(false);
                 
-        if (cardView != null) {
-            cardView.setCardElevation(dpToPx(2));
-            cardView.setCardBackgroundColor(Color.WHITE);
-            cardView.setRadius(dpToPx(4));
-            
-            cardView.setStrokeColor(Color.parseColor("#DDDDDD"));
-            cardView.setStrokeWidth(1);
-            cardView.setRippleColor(null);
-            
-            LinearLayout cardContent = (LinearLayout) cardView.getChildAt(0);
-            if (cardContent != null) {
-                cardContent.setBackgroundColor(Color.WHITE);
-                cardContent.setPadding(dpToPx(16), dpToPx(16), dpToPx(16), dpToPx(16));
-                
-                for (int i = 0; i < cardContent.getChildCount(); i++) {
-                    View child = cardContent.getChildAt(i);
-                    if (child instanceof TextView) {
-                        TextView textView = (TextView) child;
-                        
-                        textView.setTextColor(Color.BLACK);
-                        
-                        if (textView.getId() == R.id.cardTitle) {
-                            textView.setTextSize(18);
-                            textView.setTypeface(Typeface.DEFAULT_BOLD);
-                            textView.setAllCaps(false);
-                            textView.setLetterSpacing(0);
-                            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
-                            params.bottomMargin = dpToPx(8);
-                            textView.setLayoutParams(params);
-                        } else {
-                            textView.setTextSize(14);
-                            textView.setTypeface(Typeface.DEFAULT);
-                            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
-                            params.topMargin = dpToPx(8);
-                            textView.setLayoutParams(params);
-                        }
-                    }
+                movieViewModel.setFilter(MovieViewModel.FILTER_ALL);
+            } else {
+                // If all categories are unchecked, re-check the All chip
+                if (!chipWatched.isChecked() && !chipUnwatched.isChecked() && !chipFavorite.isChecked()) {
+                    // Using post to avoid recursive listener calls
+                    buttonView.post(() -> chipAll.setChecked(true));
                 }
             }
-            
-            TextView cardTitle = cardView.findViewById(R.id.cardTitle);
-            if (cardTitle != null) {
-                cardTitle.setTextSize(18);
-                cardTitle.setTextColor(Color.BLACK);
-                cardTitle.setTypeface(Typeface.DEFAULT_BOLD);
-                cardTitle.setAllCaps(false);
-                cardTitle.setLetterSpacing(0);
-                cardTitle.setLineSpacing(0, 1.0f);
-            }
-        }
+        });
         
-        TextView headlineText = findViewById(R.id.headlineText);
-        TextView bodyText = findViewById(R.id.bodyText);
-        
-        if (headlineText != null) {
-            headlineText.setTextSize(20);
-            headlineText.setTextColor(Color.BLACK);
-            headlineText.setTypeface(Typeface.DEFAULT_BOLD);
-        }
-        
-        if (bodyText != null) {
-            bodyText.setTextSize(14);
-            bodyText.setTextColor(Color.BLACK);
-            bodyText.setTypeface(Typeface.DEFAULT);
-        }
-    }
-    
-    private int dpToPx(int dp) {
-        return (int) (dp * getResources().getDisplayMetrics().density);
-    }
-    
-    private void applyTheme(int position) {
-        if (position != currentThemePosition) {
-            preferences.edit().putInt(SELECTED_THEME, position).apply();
-            
-            recreate();
-        }
-    }
-
-    private static class ThemeItem {
-        final String name;
-        final int themeResId;
-        final int colorResId;
-
-        ThemeItem(String name, int themeResId, int colorResId) {
-            this.name = name;
-            this.themeResId = themeResId;
-            this.colorResId = colorResId;
-        }
-    }
-
-    interface OnThemeClickListener {
-        void onThemeClick(int position);
-    }
-
-    private class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ThemeViewHolder> {
-        private final List<ThemeItem> items;
-        private final int currentThemePosition;
-        private final OnThemeClickListener listener;
-
-        ThemeAdapter(List<ThemeItem> items, int initialPosition, OnThemeClickListener listener) {
-            this.items = items;
-            this.currentThemePosition = initialPosition;
-            this.listener = listener;
-        }
-
-        @NonNull
-        @Override
-        public ThemeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_theme, parent, false);
-            return new ThemeViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ThemeViewHolder holder, int position) {
-            ThemeItem item = items.get(position);
-            
-            holder.themeName.setText(item.name);
-            holder.themeName.setTextColor(Color.BLACK);
-            
-            holder.themeColorPreview.setBackgroundResource(R.drawable.circle_shape);
-            int themeColor = getResources().getColor(item.colorResId, getTheme());
-            holder.themeColorPreview.getBackground().setTint(themeColor);
-            
-            holder.cardView.setCardBackgroundColor(Color.WHITE);
-            
-            if (isSelected(position)) {
-                holder.cardView.setStrokeWidth(4);
-                holder.cardView.setStrokeColor(themeColor);
+        chipWatched.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                // Uncheck other chips
+                chipAll.setChecked(false);
+                chipUnwatched.setChecked(false);
+                chipFavorite.setChecked(false);
+                
+                movieViewModel.setFilter(MovieViewModel.FILTER_WATCHED);
             } else {
-                holder.cardView.setStrokeWidth(0);
-                holder.cardView.setStrokeColor(0);
+                // If all categories are unchecked, check the All chip
+                if (!chipAll.isChecked() && !chipUnwatched.isChecked() && !chipFavorite.isChecked()) {
+                    chipAll.setChecked(true);
+                }
             }
-            
-            holder.cardView.setOnClickListener(v -> {
-                listener.onThemeClick(position);
-            });
-            
-            ViewGroup.LayoutParams layoutParams = holder.themeColorPreview.getLayoutParams();
-            if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
-                ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) layoutParams;
-                marginParams.bottomMargin = dpToPx(8);
-                holder.themeColorPreview.setLayoutParams(marginParams);
-            }
-        }
+        });
         
-        private boolean isSelected(int position) {
-            return position == currentThemePosition;
+        chipUnwatched.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                // Uncheck other chips
+                chipAll.setChecked(false);
+                chipWatched.setChecked(false);
+                chipFavorite.setChecked(false);
+                
+                movieViewModel.setFilter(MovieViewModel.FILTER_UNWATCHED);
+            } else {
+                // If all categories are unchecked, check the All chip
+                if (!chipAll.isChecked() && !chipWatched.isChecked() && !chipFavorite.isChecked()) {
+                    chipAll.setChecked(true);
+                }
+            }
+        });
+        
+        chipFavorite.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                // Uncheck other chips
+                chipAll.setChecked(false);
+                chipWatched.setChecked(false);
+                chipUnwatched.setChecked(false);
+                
+                movieViewModel.setFilter(MovieViewModel.FILTER_FAVORITES);
+            } else {
+                // If all categories are unchecked, check the All chip
+                if (!chipAll.isChecked() && !chipWatched.isChecked() && !chipUnwatched.isChecked()) {
+                    chipAll.setChecked(true);
+                }
+            }
+        });
+    }
+
+    private void updateEmptyView(boolean isEmpty) {
+        if (isEmpty) {
+            recyclerMovies.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            recyclerMovies.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onMovieClick(Movie movie) {
+        // Открываем детальную информацию о фильме
+        Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
+        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movie.getId());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onGenreClick(Genre genre) {
+        // Обработка нажатия на жанр
+        int genreId = genre.getId();
+        
+        // Если тот же жанр был выбран повторно, сбрасываем фильтр
+        if (movieViewModel.getSelectedGenreId() == genreId) {
+            movieViewModel.setSelectedGenreId(-1);
+            genreAdapter.setSelectedGenreIds(new ArrayList<>());
+        } else {
+            // Иначе устанавливаем новый фильтр
+            movieViewModel.setSelectedGenreId(genreId);
+            List<Integer> selectedGenres = new ArrayList<>();
+            selectedGenres.add(genreId);
+            genreAdapter.setSelectedGenreIds(selectedGenres);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        
+        // Настраиваем поиск
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
         }
 
         @Override
-        public int getItemCount() {
-            return items.size();
+            public boolean onQueryTextChange(String newText) {
+                movieViewModel.searchMovies(newText);
+                return true;
+            }
+        });
+        
+        // Сбросим фильтры, когда закрывается поиск
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
         }
 
-        class ThemeViewHolder extends RecyclerView.ViewHolder {
-            final TextView themeName;
-            final ImageView themeColorPreview;
-            final MaterialCardView cardView;
+        @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                movieViewModel.searchMovies("");
+                return true;
+            }
+        });
+        
+        return true;
+    }
 
-            ThemeViewHolder(@NonNull View itemView) {
-                super(itemView);
-                themeName = itemView.findViewById(R.id.themeName);
-                themeColorPreview = itemView.findViewById(R.id.themeColorPreview);
-                cardView = (MaterialCardView) itemView;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ADD_MOVIE_REQUEST_CODE) {
+                // Фильм был добавлен
+            } else if (requestCode == EDIT_MOVIE_REQUEST_CODE) {
+                // Фильм был отредактирован
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Force refresh the movies list when returning to MainActivity
+        // This ensures any changes made in AddEditMovieActivity or MovieDetailsActivity are reflected
+        movieAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        
+        if (id == R.id.action_search) {
+            return true;
+        }
+        
+        return super.onOptionsItemSelected(item);
     }
 }

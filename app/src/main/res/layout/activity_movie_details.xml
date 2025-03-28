@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MovieDetailsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                tools:text="Название фильма" />
+
+            <TextView
+                android:id="@+id/text_release_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginBottom="8dp"
+                tools:text="Дата выхода" />
+
+            <ImageView
+                android:id="@+id/image_poster"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:layout_marginBottom="16dp"
+                tools:src="@tools:sample/backgrounds/scenic"
+                android:contentDescription="Постер фильма" />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:layout_marginBottom="16dp"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_genres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_watched"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Просмотрено"
+                    android:checkable="true"
+                    app:chipIcon="@android:drawable/ic_menu_view" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Избранное"
+                    android:checkable="true"
+                    app:chipIcon="@android:drawable/btn_star" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Жанры"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_genres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Описание"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/text_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                tools:text="Описание фильма" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout> 

@@ -1,3 +1,69 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Movie Watchlist</string>
+    
+    <!-- Main Activity -->
+    <string name="all_movies">Все фильмы</string>
+    <string name="watched">Просмотренные</string>
+    <string name="unwatched">Непросмотренные</string>
+    <string name="favorites">Избранное</string>
+    <string name="add_movie">Добавить фильм</string>
+    <string name="search_movies">Поиск фильмов</string>
+    <string name="no_movies_found">Фильмов не найдено</string>
+    <string name="add_movies_hint">Добавьте фильмы в свой список, чтобы они отображались здесь</string>
+    <string name="empty_list">Пустой список</string>
+    <string name="movie_poster">Постер фильма</string>
+    <string name="favorite">Избранное</string>
+    <string name="no_genres">Нет жанров</string>
+    <string name="no_date">Нет даты</string>
+    
+    <!-- Movie Details -->
+    <string name="movie_details">Детали фильма</string>
+    <string name="overview">Описание</string>
+    <string name="release_date">Дата выхода</string>
+    <string name="rating">Рейтинг</string>
+    <string name="genres">Жанры</string>
+    <string name="reviews">Отзывы</string>
+    <string name="no_overview">Нет описания</string>
+    <string name="mark_as_watched">Отметить как просмотренный</string>
+    <string name="mark_as_unwatched">Отметить как непросмотренный</string>
+    <string name="add_to_favorites">Добавить в избранное</string>
+    <string name="remove_from_favorites">Удалить из избранного</string>
+    <string name="edit_movie">Редактировать</string>
+    <string name="delete_movie">Удалить</string>
+    <string name="delete_confirmation">Вы уверены, что хотите удалить этот фильм?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="cancel">Отмена</string>
+    
+    <!-- Add/Edit Movie -->
+    <string name="add_new_movie">Добавить новый фильм</string>
+    <string name="edit_movie_details">Редактировать фильм</string>
+    <string name="movie_title">Название фильма</string>
+    <string name="movie_poster_url">URL постера</string>
+    <string name="movie_overview">Описание фильма</string>
+    <string name="release_date_format">ГГГГ-ММ-ДД</string>
+    <string name="save">Сохранить</string>
+    <string name="select_genres">Выберите жанры</string>
+    <string name="required_field">Обязательное поле</string>
+    <string name="invalid_rating">Рейтинг должен быть от 0 до 10</string>
+    <string name="invalid_date_format">Неверный формат даты. Используйте ГГГГ-ММ-ДД</string>
+    <string name="movie_added">Фильм добавлен</string>
+    <string name="movie_updated">Фильм обновлен</string>
+    <string name="error_saving">Ошибка при сохранении</string>
+    
+    <!-- Reviews -->
+    <string name="add_review">Добавить отзыв</string>
+    <string name="edit_review">Редактировать отзыв</string>
+    <string name="delete_review">Удалить отзыв</string>
+    <string name="your_name">Ваше имя</string>
+    <string name="your_review">Ваш отзыв</string>
+    <string name="your_rating">Ваша оценка</string>
+    <string name="no_reviews">Отзывов пока нет</string>
+    <string name="review_added">Отзыв добавлен</string>
+    <string name="review_updated">Отзыв обновлен</string>
+    <string name="review_deleted">Отзыв удален</string>
+    
+    <!-- Popular Movies -->
+    <string name="popular_movies">Популярные фильмы</string>
+    <string name="add_to_watchlist">Добавить в список</string>
 </resources>

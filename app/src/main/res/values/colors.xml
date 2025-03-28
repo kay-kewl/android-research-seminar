@@ -40,4 +40,24 @@
     <color name="sunset_on_background">#FF000000</color>
     <color name="sunset_on_surface">#FF000000</color>
     <color name="sunset_on_error">#FFFFFFFF</color>
+    
+    <!-- Movie Watchlist Colors -->
+    <color name="primary">#3F51B5</color>
+    <color name="primary_dark">#303F9F</color>
+    <color name="primary_light">#C5CAE9</color>
+    <color name="accent">#FF4081</color>
+    <color name="accent_light">#FF80AB</color>
+    
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="divider">#BDBDBD</color>
+    
+    <color name="watched">#4CAF50</color>
+    <color name="favorite">#F44336</color>
+    <color name="rating_star">#FFC107</color>
+    <color name="background_light">#F5F5F5</color>
+    
+    <color name="colorPrimary">#FF6200EE</color>
+    <color name="colorPrimaryDark">#FF3700B3</color>
+    <color name="colorAccent">#FF03DAC5</color>
 </resources>
