@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">My Widget</string>
+    <string name="app_name">Task Manager</string>
 
     <!-- Random Fact Widget Strings -->
     <string name="fact_widget_name">Random Fact</string>
-    <string name="share_fact">Share Fact</string>
-    <string name="next_fact">Next Fact</string>
+    <string name="share_fact">Share</string>
+    <string name="next_fact">Next</string>
     <string name="loading_fact">Loading fact...</string>
     <string name="widget_title">Interesting Fact</string>
     <string name="fact_settings">Fact Settings</string>
