@@ -1,10 +1,39 @@
 <resources>
-    <string name="app_name">Weather Scene</string>
-    <string name="scene_1">Scene 1</string>
-    <string name="sunny_scene">Sunny Day</string>
-    <string name="rainy_scene">Rainy Day</string>
-    <string name="night_scene">Night Sky</string>
-    <string name="tap_sun">Tap the sun to see it spin!</string>
-    <string name="tap_cloud">Tap a cloud to see it rain!</string>
-    <string name="search_movies">Weather Info</string>
+    <string name="app_name">My Widget</string>
+
+    <!-- Random Fact Widget Strings -->
+    <string name="fact_widget_name">Random Fact</string>
+    <string name="share_fact">Share Fact</string>
+    <string name="next_fact">Next Fact</string>
+    <string name="loading_fact">Loading fact...</string>
+    <string name="widget_title">Interesting Fact</string>
+    <string name="fact_settings">Fact Settings</string>
+    <string name="category_science">Science</string>
+    <string name="category_history">History</string>
+    <string name="category_animals">Animals</string>
+    <string name="category_geography">Geography</string>
+    <string name="category_physics">Physics</string>
+    <string name="category_astronomy">Astronomy</string>
+    <string name="category_economics">Economics</string>
+    <string name="category_linguistics">Linguistics</string>
+    <string name="category_music">Music</string>
+    <string name="category_literature">Literature</string>
+    <string name="category_all">All Categories</string>
+    <string name="update_frequency">Update Frequency</string>
+    <string name="update_daily">Daily</string>
+    <string name="update_hourly">Hourly</string>
+    <string name="update_on_tap">On Tap Only</string>
+    <string name="take_quiz">Take a Quiz</string>
+    <string name="quiz_title">Fact Quiz</string>
+    <string name="quiz_question">Is this fact true or false?</string>
+    <string name="quiz_true">True</string>
+    <string name="quiz_false">False</string>
+    <string name="quiz_correct">Correct!</string>
+    <string name="quiz_incorrect">Incorrect!</string>
+    <string name="quiz_next">Next Question</string>
+    <string name="quiz_score">Score: %1$d / %2$d</string>
+    <string name="fact_source">Source: %1$s</string>
+    <string name="category_selection">Category Selection</string>
+    <string name="multi_category_info">Select multiple categories to display facts from</string>
+    <string name="save_settings">Save Settings</string>
 </resources>

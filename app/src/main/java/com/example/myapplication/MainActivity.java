@@ -11,6 +11,8 @@ import org.osmdroid.config.Configuration;
 
 import java.io.File;
 
+import com.example.myapplication.activities.FactSettingsActivity;
+
 public class MainActivity extends AppCompatActivity {
     
     @Override
@@ -25,14 +27,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         
         // Set up the play button
-        Button playButton = findViewById(R.id.playButton);
-        playButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the game activity
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intent);
-            }
-        });
+        Button button = findViewById(R.id.button);
+        if (button != null) {
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Launch Facts Settings instead of Game
+                    Intent intent = new Intent(MainActivity.this, FactSettingsActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 } 

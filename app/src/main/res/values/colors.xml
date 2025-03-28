@@ -13,8 +13,8 @@
     <color name="rain_blue">#1565C0</color>
     
     <!-- Legacy colors (to maintain compatibility) -->
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorCorrect">#4CAF50</color>
     <color name="colorIncorrect">#F44336</color>
@@ -46,4 +46,23 @@
     <color name="sunset_on_background">#000000</color>
     <color name="sunset_on_surface">#000000</color>
     <color name="sunset_on_error">#FFFFFF</color>
+    
+    <!-- Random Fact Widget Colors -->
+    <color name="widget_background">#FFFFFF</color>
+    <color name="widget_border">#DDDDDD</color>
+    <color name="widget_title">#333333</color>
+    <color name="widget_text">#212121</color>
+    
+    <!-- Category Colors -->
+    <color name="science_category">#4CAF50</color>
+    <color name="history_category">#FFC107</color>
+    <color name="animal_category">#FF9800</color>
+    <color name="geography_category">#3F51B5</color>
+    <color name="physics_category">#9C27B0</color>
+    <color name="astronomy_category">#009688</color>
+    <color name="economics_category">#795548</color>
+    <color name="linguistics_category">#E91E63</color>
+    <color name="music_category">#673AB7</color>
+    <color name="literature_category">#8BC34A</color>
+    <color name="all_category">#2196F3</color>
 </resources>
