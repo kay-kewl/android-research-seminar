@@ -3,4 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="gray">#FFA0A0A0</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- Game theme colors -->
+    <color name="game_background">#000033</color>
+    <color name="game_primary">#4040FF</color>
+    <color name="game_primary_dark">#000099</color>
+    <color name="game_accent">#FFD700</color>
+    <color name="game_text">#FFFFFF</color>
 </resources>

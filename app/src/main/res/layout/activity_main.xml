@@ -1,82 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/secondLayout"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:padding="16dp"
+    android:background="#000033">
 
-    <TextView
-        android:id="@+id/activityTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/second_activity"
-        android:textSize="24sp"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        android:layout_marginTop="50dp"/>
-
-    <TextView
-        android:id="@+id/youEnteredTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textview_prompt"
-        android:textSize="20sp"
-        android:textAlignment="center"
-        android:layout_below="@id/activityTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
-
-    <TextView
-        android:id="@+id/textViewEnteredText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:layout_below="@id/youEnteredTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
-
+    <!-- Top Info Section -->
     <LinearLayout
-        android:id="@+id/buttonContainer"
+        android:id="@+id/topInfoLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_above="@id/backButton"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:gravity="center">
+        android:layout_alignParentTop="true">
 
-        <Button
-            android:id="@+id/copyButton"
+        <TextView
+            android:id="@+id/questionNumberText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/button_copy"
-            android:textSize="24sp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp" />
+            android:text="@string/question_text"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"/>
 
-        <Button
-            android:id="@+id/shareButton"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/scoreText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/button_share"
-            android:textSize="24sp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp" />
-
+            android:text="@string/score_text"
+            android:textColor="#FFD700"
+            android:textSize="18sp"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="160dp"
+    <!-- Question Section -->
+    <TextView
+        android:id="@+id/questionText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_back"
+        android:layout_below="@id/topInfoLayout"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true" />
+        android:padding="16dp"
+        android:background="#000066"/>
 
-</RelativeLayout>
+    <!-- Answer Buttons -->
+    <LinearLayout
+        android:id="@+id/answersLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/questionText"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/answerButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/answer_button_background"
+            android:textColor="#FFFFFF"/>
+
+        <Button
+            android:id="@+id/answerButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/answer_button_background"
+            android:textColor="#FFFFFF"/>
+
+        <Button
+            android:id="@+id/answerButton3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/answer_button_background"
+            android:textColor="#FFFFFF"/>
+
+        <Button
+            android:id="@+id/answerButton4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/answer_button_background"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
+
+    <!-- Hints Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/hint5050Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:text="@string/hint_5050"
+            android:background="@drawable/hint_button_background"
+            android:textColor="#FFFFFF"/>
+
+        <Button
+            android:id="@+id/hintAudienceButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:text="@string/hint_audience"
+            android:background="@drawable/hint_button_background"
+            android:textColor="#FFFFFF"/>
+
+        <Button
+            android:id="@+id/hintPhoneButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:text="@string/hint_phone"
+            android:background="@drawable/hint_button_background"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
+
+</RelativeLayout> 
