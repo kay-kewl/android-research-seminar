@@ -33,15 +33,10 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     
-    // Room Database
-    val roomVersion = "2.6.0"
-    implementation("androidx.room:room-runtime:$roomVersion")
-    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    // ViewPager2 for swipeable interface
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
     
-    // Glide для загрузки изображений
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    
-    // LiveData и ViewModel
+    // Lifecycle components
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata:2.6.2")
     

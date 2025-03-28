@@ -1,63 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Default Theme Colors -->
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="light_blue">#64B5F6</color>
+    <color name="blue">#2196F3</color>
+    <color name="green">#4CAF50</color>
+    <color name="dark_green">#388E3C</color>
+    <color name="sky_blue">#87CEEB</color>
+    <color name="grass_green">#228B22</color>
+    <color name="sun_yellow">#FFC107</color>
+    <color name="cloud_gray">#CCCCCC</color>
+    <color name="rain_blue">#1565C0</color>
     
-    <!-- Общие цвета интерфейса -->
-    <color name="card_background">#FFFFFFFF</color>
-    <color name="card_background_dark">#FF303030</color>
+    <!-- Legacy colors (to maintain compatibility) -->
+    <color name="colorPrimary">@color/blue</color>
+    <color name="colorPrimaryDark">@color/dark_green</color>
+    <color name="colorAccent">@color/light_blue</color>
     
-    <!-- Ocean Theme Colors -->
-    <color name="ocean_primary">#FF1976D2</color>
-    <color name="ocean_primary_variant">#FF0D47A1</color>
-    <color name="ocean_secondary">#FF26C6DA</color>
-    <color name="ocean_secondary_variant">#FF00838F</color>
-    <color name="ocean_background">#FFE3F2FD</color>
-    <color name="ocean_surface">#FFFFFFFF</color>
-    <color name="ocean_error">#FFB00020</color>
-    <color name="ocean_on_primary">#FFFFFFFF</color>
-    <color name="ocean_on_secondary">#FF000000</color>
-    <color name="ocean_on_background">#FF000000</color>
-    <color name="ocean_on_surface">#FF000000</color>
-    <color name="ocean_on_error">#FFFFFFFF</color>
+    <!-- Ocean theme colors -->
+    <color name="ocean_primary">#0277BD</color>
+    <color name="ocean_primary_variant">#01579B</color>
+    <color name="ocean_on_primary">#FFFFFF</color>
+    <color name="ocean_secondary">#26A69A</color>
+    <color name="ocean_secondary_variant">#00897B</color>
+    <color name="ocean_on_secondary">#FFFFFF</color>
+    <color name="ocean_background">#E0F7FA</color>
+    <color name="ocean_surface">#FFFFFF</color>
+    <color name="ocean_error">#B00020</color>
+    <color name="ocean_on_background">#000000</color>
+    <color name="ocean_on_surface">#000000</color>
+    <color name="ocean_on_error">#FFFFFF</color>
     
-    <!-- Sunset Theme Colors -->
-    <color name="sunset_primary">#FFFF5722</color>
-    <color name="sunset_primary_variant">#FFE64A19</color>
-    <color name="sunset_secondary">#FFFFB74D</color>
-    <color name="sunset_secondary_variant">#FFF57C00</color>
-    <color name="sunset_background">#FFFFF8E1</color>
-    <color name="sunset_surface">#FFFFFFFF</color>
-    <color name="sunset_error">#FFB00020</color>
-    <color name="sunset_on_primary">#FFFFFFFF</color>
-    <color name="sunset_on_secondary">#FF000000</color>
-    <color name="sunset_on_background">#FF000000</color>
-    <color name="sunset_on_surface">#FF000000</color>
-    <color name="sunset_on_error">#FFFFFFFF</color>
-    
-    <!-- Movie Watchlist Colors -->
-    <color name="primary">#3F51B5</color>
-    <color name="primary_dark">#303F9F</color>
-    <color name="primary_light">#C5CAE9</color>
-    <color name="accent">#FF4081</color>
-    <color name="accent_light">#FF80AB</color>
-    
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#757575</color>
-    <color name="divider">#BDBDBD</color>
-    
-    <color name="watched">#4CAF50</color>
-    <color name="favorite">#F44336</color>
-    <color name="rating_star">#FFC107</color>
-    <color name="background_light">#F5F5F5</color>
-    
-    <color name="colorPrimary">#FF6200EE</color>
-    <color name="colorPrimaryDark">#FF3700B3</color>
-    <color name="colorAccent">#FF03DAC5</color>
+    <!-- Sunset theme colors -->
+    <color name="sunset_primary">#FF9800</color>
+    <color name="sunset_primary_variant">#F57C00</color>
+    <color name="sunset_on_primary">#000000</color>
+    <color name="sunset_secondary">#FFC107</color>
+    <color name="sunset_secondary_variant">#FFB300</color>
+    <color name="sunset_on_secondary">#000000</color>
+    <color name="sunset_background">#FFF8E1</color>
+    <color name="sunset_surface">#FFFFFF</color>
+    <color name="sunset_error">#B00020</color>
+    <color name="sunset_on_background">#000000</color>
+    <color name="sunset_on_surface">#000000</color>
+    <color name="sunset_on_error">#FFFFFF</color>
 </resources>

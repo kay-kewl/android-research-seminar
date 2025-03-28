@@ -22,14 +22,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".AddEditMovieActivity"
-            android:parentActivityName=".MainActivity" />
-
-        <activity
-            android:name=".MovieDetailsActivity"
-            android:parentActivityName=".MainActivity" />
-
     </application>
 
 </manifest>
