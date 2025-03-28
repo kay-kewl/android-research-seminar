@@ -33,12 +33,15 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     
-    // ViewPager2 for swipeable interface
-    implementation("androidx.viewpager2:viewpager2:1.0.0")
+    // OpenStreetMap (OSMDroid) for free map implementation
+    implementation("org.osmdroid:osmdroid-android:6.1.16")
     
     // Lifecycle components
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata:2.6.2")
+    
+    // Glide for image loading
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

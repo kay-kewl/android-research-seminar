@@ -13,9 +13,11 @@
     <color name="rain_blue">#1565C0</color>
     
     <!-- Legacy colors (to maintain compatibility) -->
-    <color name="colorPrimary">@color/blue</color>
-    <color name="colorPrimaryDark">@color/dark_green</color>
-    <color name="colorAccent">@color/light_blue</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorCorrect">#4CAF50</color>
+    <color name="colorIncorrect">#F44336</color>
     
     <!-- Ocean theme colors -->
     <color name="ocean_primary">#0277BD</color>
