@@ -3,4 +3,6 @@
     <dimen name="page_margin">8dp</dimen>
     <dimen name="page_offset">32dp</dimen>
     <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources> 

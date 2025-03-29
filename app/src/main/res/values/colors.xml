@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white">#FFFFFF</color>
+    <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
     <color name="light_blue">#64B5F6</color>
     <color name="blue">#2196F3</color>
@@ -65,4 +65,5 @@
     <color name="music_category">#673AB7</color>
     <color name="literature_category">#8BC34A</color>
     <color name="all_category">#2196F3</color>
+    <color name="sound_button_color">#673AB7</color>
 </resources>

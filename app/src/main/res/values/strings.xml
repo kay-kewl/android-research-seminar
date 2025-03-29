@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">Task Manager</string>
+    <string name="app_name">Sound Grid Composer</string>
+    <string name="app_title">Sound Grid Composer</string>
+    <string name="app_subtitle">Tap squares to create melodies and receive notifications</string>
 
     <!-- Random Fact Widget Strings -->
-    <string name="fact_widget_name">Random Fact</string>
+    <string name="fact_widget_name">Fact Widget</string>
     <string name="share_fact">Share</string>
     <string name="next_fact">Next</string>
     <string name="loading_fact">Loading fact...</string>
