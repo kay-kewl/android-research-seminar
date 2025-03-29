@@ -634,28 +634,62 @@ public class MainActivity extends AppCompatActivity {
                 if (otherUser.isOnline()) {
                     holder.ivStatus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.online_green));
                     
-                    // Check if user is typing or choosing photo
-                    String activityStatus = otherUser.getStatusForChatList();
-                    if (!activityStatus.isEmpty()) {
-                        // Show activity status in place of the last message
-                        holder.tvLastMessage.setText(activityStatus);
-                        holder.tvLastMessage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.accent));
-                        holder.tvLastMessage.setTypeface(null, Typeface.ITALIC);
+                    // Add real-time listener for user activity status
+                    final DatabaseReference activityRef = usersRef.child(otherUserId).child("currentActivity");
+                    activityRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String currentActivity = dataSnapshot.getValue(String.class);
+                            
+                            if (currentActivity != null && !currentActivity.isEmpty()) {
+                                String activityText = "";
+                                
+                                if ("typing".equals(currentActivity)) {
+                                    activityText = "печатает...";
+                                } else if ("choosing_photo".equals(currentActivity)) {
+                                    activityText = "выбирает фото...";
+                                }
+                                
+                                if (!activityText.isEmpty()) {
+                                    // Show activity status in place of the last message
+                                    holder.tvLastMessage.setText(activityText);
+                                    holder.tvLastMessage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.accent));
+                                    holder.tvLastMessage.setTypeface(null, Typeface.ITALIC);
+                                    
+                                    // Hide the user activity text view as we're showing the status in the message area
+                                    holder.tvUserActivity.setVisibility(View.GONE);
+                                } else {
+                                    // Reset message text appearance if not typing
+                                    holder.tvLastMessage.setText(chat.getLastMessageText());
+                                    holder.tvLastMessage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.text_secondary));
+                                    holder.tvLastMessage.setTypeface(null, Typeface.NORMAL);
+                                    holder.tvUserActivity.setVisibility(View.GONE);
+                                }
+                            } else {
+                                // Reset message text appearance if not typing
+                                holder.tvLastMessage.setText(chat.getLastMessageText());
+                                holder.tvLastMessage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.text_secondary));
+                                holder.tvLastMessage.setTypeface(null, Typeface.NORMAL);
+                                holder.tvUserActivity.setVisibility(View.GONE);
+                            }
+                        }
                         
-                        // Hide the user activity text view as we're showing the status in the message area
-                        holder.tvUserActivity.setVisibility(View.GONE);
-                    } else {
-                        // Reset message text appearance if not typing
-                        holder.tvLastMessage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.text_secondary));
-                        holder.tvLastMessage.setTypeface(null, Typeface.NORMAL);
-                        holder.tvUserActivity.setVisibility(View.GONE);
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // In case of error, show regular last message
+                            holder.tvLastMessage.setText(chat.getLastMessageText());
+                            holder.tvLastMessage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.text_secondary));
+                            holder.tvLastMessage.setTypeface(null, Typeface.NORMAL);
+                            holder.tvUserActivity.setVisibility(View.GONE);
+                        }
+                    });
                 } else {
                     // Gray indicator for offline users
                     holder.ivStatus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.gray));
                     holder.tvUserActivity.setVisibility(View.GONE);
                     
                     // Reset message text appearance
+                    holder.tvLastMessage.setText(chat.getLastMessageText());
                     holder.tvLastMessage.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.text_secondary));
                     holder.tvLastMessage.setTypeface(null, Typeface.NORMAL);
                 }

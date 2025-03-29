@@ -230,6 +230,17 @@ public class ChatActivity extends AppCompatActivity {
         // Mark messages as read immediately when returning to the chat
         if (!messageList.isEmpty()) {
             markVisibleMessagesAsRead();
+            
+            // Also set up a timer to periodically mark messages as read while in the chat
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (!isFinishing() && !isDestroyed()) {
+                        markVisibleMessagesAsRead();
+                        new Handler().postDelayed(this, 2000); // Check every 2 seconds
+                    }
+                }
+            }, 2000);
         }
     }
     
@@ -620,11 +631,32 @@ public class ChatActivity extends AppCompatActivity {
         
         // Add scroll listener for updating read status when scrolling
         rvMessages.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            // Variable to track if we're currently scrolling
+            private boolean isScrolling = false;
+            
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+                
+                // When starting to scroll, track that we're scrolling
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    isScrolling = true;
+                }
+                
+                // When scrolling stops, mark messages as read and reset flag
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    // Make sure messages are marked as read when scrolling stops
+                    isScrolling = false;
+                    markVisibleMessagesAsRead();
+                }
+            }
+            
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                
+                // During fling scrolling, periodically check and mark messages
+                // This helps with long chat histories
+                if (isScrolling && Math.abs(dy) > 50) {
                     markVisibleMessagesAsRead();
                 }
             }
@@ -703,32 +735,64 @@ public class ChatActivity extends AppCompatActivity {
     private void markVisibleMessagesAsRead() {
         if (messageList.isEmpty()) return;
         
-        // Ищем последнее сообщение, которое видно на экране от собеседника
+        // Ищем сообщения от собеседника, которые видны на экране
         LinearLayoutManager layoutManager = (LinearLayoutManager) rvMessages.getLayoutManager();
         if (layoutManager == null) return;
         
-        int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
-        if (lastVisiblePosition == -1) return;
+        int firstVisiblePosition = layoutManager.findFirstCompletelyVisibleItemPosition();
+        int lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition();
         
+        if (firstVisiblePosition == -1 || lastVisiblePosition == -1) return;
+        
+        // Track the last message from recipient we find
         String lastVisibleMessageId = null;
+        List<String> messagesToMarkAsRead = new ArrayList<>();
         
-        // Проходим по видимым сообщениям в обратном порядке, чтобы найти последнее от собеседника
-        for (int i = lastVisiblePosition; i >= 0; i--) {
+        // Go through all completely visible messages from recipient
+        for (int i = firstVisiblePosition; i <= lastVisiblePosition; i++) {
             if (i >= messageList.size()) continue;
             
             Message message = messageList.get(i);
-            if (!message.getSenderId().equals(currentUser.getUid())) {
+            // Если сообщение от собеседника и не прочитано текущим пользователем
+            if (!message.getSenderId().equals(currentUser.getUid()) && !message.isReadBy(currentUser.getUid())) {
+                messagesToMarkAsRead.add(message.getMessageId());
                 lastVisibleMessageId = message.getMessageId();
-                break;
             }
         }
         
-        // Если нашли сообщение от собеседника, отмечаем его как последнее прочитанное
-        if (lastVisibleMessageId != null) {
-            chatRef.child("lastReadMessageId").child(currentUser.getUid()).setValue(lastVisibleMessageId);
+        // If we don't have any completely visible messages, try partially visible ones
+        if (messagesToMarkAsRead.isEmpty()) {
+            int firstPartialVisible = layoutManager.findFirstVisibleItemPosition();
+            int lastPartialVisible = layoutManager.findLastVisibleItemPosition();
             
-            // Сброс счетчика непрочитанных сообщений
+            for (int i = firstPartialVisible; i <= lastPartialVisible; i++) {
+                if (i >= messageList.size()) continue;
+                
+                Message message = messageList.get(i);
+                if (!message.getSenderId().equals(currentUser.getUid()) && !message.isReadBy(currentUser.getUid())) {
+                    messagesToMarkAsRead.add(message.getMessageId());
+                    lastVisibleMessageId = message.getMessageId();
+                }
+            }
+        }
+        
+        // If we found messages to mark as read, update them
+        if (!messagesToMarkAsRead.isEmpty()) {
+            // Mark each message as read with individual updates for reliability
+            for (String messageId : messagesToMarkAsRead) {
+                messagesRef.child(messageId).child("readBy").child(currentUser.getUid()).setValue(true);
+            }
+            
+            // Update lastReadMessageId for the chat
+            if (lastVisibleMessageId != null) {
+                chatRef.child("lastReadMessageId").child(currentUser.getUid()).setValue(lastVisibleMessageId);
+            }
+            
+            // Reset unread count
             resetUnreadCount();
+            
+            // Force adapter to refresh to show updated read status immediately
+            adapter.notifyDataSetChanged();
         }
     }
     
@@ -1066,32 +1130,41 @@ public class ChatActivity extends AppCompatActivity {
             
             // Set read status for outgoing messages
             if (getItemViewType(position) == VIEW_TYPE_SENT && holder.ivReadStatus != null) {
-                chatRef.child("lastReadMessageId").child(recipientId).addListenerForSingleValueEvent(new ValueEventListener() {
+                // Listen for real-time changes to lastReadMessageId
+                DatabaseReference lastReadRef = chatRef.child("lastReadMessageId").child(recipientId);
+                
+                // First attach a ValueEventListener to get real-time updates
+                lastReadRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        // Get the last read message ID from the recipient
                         String lastReadId = dataSnapshot.getValue(String.class);
                         boolean isRead = false;
                         
                         if (lastReadId != null) {
-                            // Проверяем, находится ли текущее сообщение до последнего прочитанного
-                            for (int i = 0; i < messageList.size(); i++) {
-                                Message msg = messageList.get(i);
-                                if (msg.getMessageId().equals(lastReadId)) {
-                                    // Если индекс текущего сообщения меньше или равен индексу последнего прочитанного,
-                                    // то сообщение считается прочитанным
-                                    isRead = position <= i;
+                            // Check if this message's timestamp is less than or equal to the last read message timestamp
+                            // which means it's been read
+                            for (Message m : messageList) {
+                                if (m.getMessageId().equals(lastReadId)) {
+                                    isRead = message.getTimestamp() <= m.getTimestamp();
                                     break;
                                 }
                             }
+                            
+                            // Also check directly if this message is specifically marked as read
+                            if (message.isReadBy(recipientId)) {
+                                isRead = true;
+                            }
                         }
                         
+                        // Update the UI based on the read status
                         holder.ivReadStatus.setImageResource(isRead ? R.drawable.ic_read : R.drawable.ic_delivered);
                         holder.ivReadStatus.setVisibility(View.VISIBLE);
                     }
                     
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        // В случае ошибки показываем статус "доставлено"
+                        // In case of error, show the delivered status
                         holder.ivReadStatus.setImageResource(R.drawable.ic_delivered);
                         holder.ivReadStatus.setVisibility(View.VISIBLE);
                     }
@@ -1283,8 +1356,68 @@ public class ChatActivity extends AppCompatActivity {
                     .setMessage("Вы уверены, что хотите удалить это сообщение?")
                     .setPositiveButton("Да", (dialog, which) -> {
                         messagesRef.child(message.getMessageId()).removeValue()
-                                .addOnSuccessListener(aVoid -> 
-                                        Toast.makeText(ChatActivity.this, "Сообщение удалено", Toast.LENGTH_SHORT).show())
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(ChatActivity.this, "Сообщение удалено", Toast.LENGTH_SHORT).show();
+                                    
+                                    // Check if this was the last message in the chat
+                                    chatRef.child("lastMessageSenderId").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            String lastMessageId = message.getMessageId();
+                                            // If this message was the last message in the chat
+                                            if (dataSnapshot.exists() && 
+                                                message.getSenderId().equals(dataSnapshot.getValue(String.class))) {
+                                                
+                                                // Find the new last message
+                                                Message newLastMessage = null;
+                                                long latestTimestamp = 0;
+                                                
+                                                for (Message msg : messageList) {
+                                                    // Skip the deleted message
+                                                    if (msg.getMessageId().equals(message.getMessageId())) {
+                                                        continue;
+                                                    }
+                                                    
+                                                    if (msg.getTimestamp() > latestTimestamp) {
+                                                        latestTimestamp = msg.getTimestamp();
+                                                        newLastMessage = msg;
+                                                    }
+                                                }
+                                                
+                                                // Update the last message info in the chat
+                                                Map<String, Object> updates = new HashMap<>();
+                                                if (newLastMessage != null) {
+                                                    String text = newLastMessage.getText();
+                                                    if (text == null || text.isEmpty()) {
+                                                        if (newLastMessage.hasImage()) {
+                                                            text = "[Изображение]";
+                                                        } else {
+                                                            text = "";
+                                                        }
+                                                    }
+                                                    
+                                                    updates.put("lastMessageText", text);
+                                                    updates.put("lastMessageTimestamp", newLastMessage.getTimestamp());
+                                                    updates.put("lastMessageSenderId", newLastMessage.getSenderId());
+                                                } else {
+                                                    // No messages left in the chat
+                                                    updates.put("lastMessageText", "");
+                                                    updates.put("lastMessageTimestamp", System.currentTimeMillis());
+                                                    updates.put("lastMessageSenderId", "");
+                                                }
+                                                
+                                                chatRef.updateChildren(updates)
+                                                    .addOnFailureListener(e -> Toast.makeText(ChatActivity.this, 
+                                                        "Ошибка обновления чата: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                                            }
+                                        }
+                                        
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            // Ignore error
+                                        }
+                                    });
+                                })
                                 .addOnFailureListener(e -> 
                                         Toast.makeText(ChatActivity.this, "Ошибка при удалении сообщения", Toast.LENGTH_SHORT).show());
                     })
@@ -1320,15 +1453,94 @@ public class ChatActivity extends AppCompatActivity {
 
     private void updateTypingStatus(boolean isTyping) {
         if (currentUser != null && recipientId != null) {
-            String activityValue = isTyping ? "typing" : null;
-            usersRef.child(currentUser.getUid()).child("currentActivity").setValue(activityValue);
+            // First, check if we're already in the requested state to avoid unnecessary updates
+            usersRef.child(currentUser.getUid()).child("currentActivity").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String currentActivity = dataSnapshot.getValue(String.class);
+                    boolean currentlyTyping = "typing".equals(currentActivity);
+                    
+                    // Only update if the state is changing
+                    if (isTyping != currentlyTyping) {
+                        String activityValue = isTyping ? "typing" : null;
+                        
+                        // If we're switching from choosing photo to not typing, preserve the choosing photo status
+                        if (!isTyping && "choosing_photo".equals(currentActivity)) {
+                            // Don't change the status
+                            return;
+                        }
+                        
+                        // Otherwise update the status
+                        usersRef.child(currentUser.getUid()).child("currentActivity").setValue(activityValue);
+                        
+                        // Also update the typing flag directly to ensure the model state is consistent
+                        if (isTyping) {
+                            usersRef.child(currentUser.getUid()).child("typing").setValue(true);
+                        } else {
+                            usersRef.child(currentUser.getUid()).child("typing").setValue(false);
+                        }
+                    }
+                }
+                
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // In case of error, still try to update
+                    String activityValue = isTyping ? "typing" : null;
+                    usersRef.child(currentUser.getUid()).child("currentActivity").setValue(activityValue);
+                }
+            });
         }
     }
     
     private void updateChoosingPhotoStatus(boolean isChoosing) {
         if (currentUser != null && recipientId != null) {
-            String activityValue = isChoosing ? "choosing_photo" : null;
-            usersRef.child(currentUser.getUid()).child("currentActivity").setValue(activityValue);
+            if (isChoosing) {
+                // Apply all updates immediately for photo selection to ensure online status
+                Map<String, Object> updates = new HashMap<>();
+                updates.put("currentActivity", "choosing_photo");
+                updates.put("choosingPhoto", true);
+                updates.put("online", true);
+                
+                // Set a very long timeout to ensure the user stays online during photo selection
+                long extendedOnlineTime = System.currentTimeMillis() + ONLINE_HEARTBEAT_INTERVAL * 3; // Triple the normal timeout
+                updates.put("onlineUntil", extendedOnlineTime);
+                
+                // Apply all updates atomically
+                usersRef.child(currentUser.getUid()).updateChildren(updates);
+            } else {
+                // Check current activity when canceling photo selection
+                usersRef.child(currentUser.getUid()).child("currentActivity").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String currentActivity = dataSnapshot.getValue(String.class);
+                        
+                        // If they were typing before, maintain typing status
+                        if ("typing".equals(currentActivity)) {
+                            // Don't change the status, maintain typing
+                            usersRef.child(currentUser.getUid()).child("choosingPhoto").setValue(false);
+                        } else {
+                            // Reset activity status but maintain online status
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("currentActivity", null);
+                            updates.put("choosingPhoto", false);
+                            updates.put("online", true); // Ensure user stays online
+                            
+                            // Refresh online timeout
+                            long onlineUntil = System.currentTimeMillis() + ONLINE_HEARTBEAT_INTERVAL + 3000;
+                            updates.put("onlineUntil", onlineUntil);
+                            
+                            usersRef.child(currentUser.getUid()).updateChildren(updates);
+                        }
+                    }
+                    
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Fallback in case of error - at least reset the choosingPhoto flag
+                        usersRef.child(currentUser.getUid()).child("choosingPhoto").setValue(false);
+                        usersRef.child(currentUser.getUid()).child("online").setValue(true);
+                    }
+                });
+            }
         }
     }
 
@@ -1336,8 +1548,18 @@ public class ChatActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         
-        // Сбрасываем статус выбора фото
+        // Reset the choosing photo status
         updateChoosingPhotoStatus(false);
+        
+        // Explicitly update online status to make sure we're shown as online
+        // This prevents the user from appearing offline after returning from photo selection
+        if (currentUser != null) {
+            Map<String, Object> updates = new HashMap<>();
+            long onlineUntil = System.currentTimeMillis() + ONLINE_HEARTBEAT_INTERVAL + 3000;
+            updates.put("online", true);
+            updates.put("onlineUntil", onlineUntil);
+            usersRef.child(currentUser.getUid()).updateChildren(updates);
+        }
     }
 
     // Add method to start the online heartbeat timer

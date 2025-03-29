@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Daily Affirmations</string>
+    <string name="app_name">Chat App</string>
     <string name="app_title">Ежедневные Аффирмации</string>
     <string name="app_description">Нажмите на кнопку ниже, чтобы получить позитивную аффирмацию на сегодня</string>
     <string name="send_notification">Получить аффирмацию</string>
