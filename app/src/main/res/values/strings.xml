@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sound Grid Composer</string>
+    <string name="app_name">PhotoEditor</string>
     <string name="app_title">Sound Grid Composer</string>
     <string name="app_subtitle">Tap squares to create melodies and receive notifications</string>
 
@@ -38,4 +38,25 @@
     <string name="category_selection">Category Selection</string>
     <string name="multi_category_info">Select multiple categories to display facts from</string>
     <string name="save_settings">Save Settings</string>
+    <string name="take_photo">Сделать снимок</string>
+    <string name="share">Поделиться</string>
+    <string name="image_preview">Предпросмотр изображения</string>
+    <string name="brush">Кисть</string>
+    <string name="text">Текст</string>
+    <string name="color">Цвет</string>
+    <string name="undo">Отменить</string>
+    <string name="clear">Очистить</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
+    <string name="mode_draw">Рисование</string>
+    <string name="mode_text">Текст</string>
+    <string name="color_preview">Предпросмотр цвета</string>
+    <string name="brush_size">Размер кисти</string>
+    <string name="rotate_text">Повернуть текст</string>
+    <string name="resize_text">Изменить размер текста</string>
+    <string name="permission_required">Требуется разрешение</string>
+    <string name="camera_permission_required">Для работы приложения требуется разрешение на использование камеры</string>
+    <string name="storage_permission_required">Для работы приложения требуется разрешение на использование хранилища</string>
+    <string name="add_text">Добавить текст</string>
+    <string name="enter_text">Введите текст</string>
 </resources>
