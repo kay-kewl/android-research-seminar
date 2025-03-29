@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Основные цвета для темной темы -->
+    <color name="background">@color/background_dark</color>
+    <color name="card_stroke">@color/card_stroke_dark</color>
+    <color name="ripple_color">@color/ripple_color_dark</color>
+</resources> 

@@ -33,6 +33,18 @@
         </activity>
 
         <activity
+            android:name=".NoteDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".NoteViewActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ImageEditorActivity"
             android:exported="false" />
 

@@ -37,7 +37,6 @@
     <string name="fact_source">Source: %1$s</string>
     <string name="category_selection">Category Selection</string>
     <string name="multi_category_info">Select multiple categories to display facts from</string>
-    <string name="save_settings">Save Settings</string>
     <string name="take_photo">Сделать снимок</string>
     <string name="share">Поделиться</string>
     <string name="image_preview">Предпросмотр изображения</string>
@@ -59,4 +58,34 @@
     <string name="storage_permission_required">Для работы приложения требуется разрешение на использование хранилища</string>
     <string name="add_text">Добавить текст</string>
     <string name="enter_text">Введите текст</string>
+    <string name="edit_text">Редактировать</string>
+    <string name="share_text">Поделиться</string>
+    <string name="export_text">Экспорт</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_about">О приложении</string>
+    <string name="hint_title">Заголовок</string>
+    <string name="hint_content">Содержание заметки</string>
+    <string name="hint_category">Категория</string>
+    <string name="new_category">Создать новую категорию</string>
+    <string name="select_category">Выберите категорию</string>
+    <string name="add_category">Добавить категорию</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="all_categories">Все</string>
+    <string name="no_notes">У вас пока нет заметок</string>
+    <string name="add_your_first">Добавьте свою первую заметку, нажав на кнопку +</string>
+    <string name="menu_delete">Удалить</string>
+    
+    <!-- Настройки -->
+    <string name="theme_settings">Тема приложения</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Темная</string>
+    <string name="theme_system">Системная (по умолчанию)</string>
+    <string name="color_scheme">Цветовая схема</string>
+    <string name="color_blue">Синяя</string>
+    <string name="color_purple">Фиолетовая (по умолчанию)</string>
+    <string name="color_green">Зеленая</string>
+    <string name="color_orange">Оранжевая</string>
+    <string name="font_size">Размер шрифта</string>
+    <string name="font_size_example">Так будет выглядеть текст с выбранным размером шрифта</string>
+    <string name="settings_save">Сохранить настройки</string>
 </resources>
