@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Цвета для фона и текста в тёмной теме -->
+    <color name="background">#121212</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0BEC5</color>
+    
+    <!-- Цвета для сообщений в тёмной теме -->
+    <color name="sent_message_bg">#0D47A1</color>
+    <color name="received_message_bg">#263238</color>
+</resources> 

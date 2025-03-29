@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="Профиль"
+        app:showAsAction="ifRoom" />
+        
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Настройки"
+        app:showAsAction="never" />
+        
+    <item
+        android:id="@+id/action_logout"
+        android:title="Выйти"
+        app:showAsAction="never" />
+</menu> 

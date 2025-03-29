@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Размеры сообщений -->
+    <dimen name="min_message_width">200dp</dimen>
+    <dimen name="max_message_width">300dp</dimen>
+    
+    <!-- Отступы -->
+    <dimen name="small_padding">4dp</dimen>
+    <dimen name="medium_padding">8dp</dimen>
+    <dimen name="large_padding">16dp</dimen>
+    
+    <!-- Размеры текста -->
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_large">16sp</dimen>
+    
+    <!-- Размеры аватаров -->
+    <dimen name="avatar_size_small">40dp</dimen>
+    <dimen name="avatar_size_medium">60dp</dimen>
+    <dimen name="avatar_size_large">100dp</dimen>
+    
+    <!-- Радиусы скругления -->
+    <dimen name="corner_radius_small">4dp</dimen>
+    <dimen name="corner_radius_medium">8dp</dimen>
+    <dimen name="corner_radius_large">16dp</dimen>
+</resources> 
