@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PhotoEditor</string>
+    <string name="app_name">Notes</string>
     <string name="app_title">Sound Grid Composer</string>
     <string name="app_subtitle">Tap squares to create melodies and receive notifications</string>
 
