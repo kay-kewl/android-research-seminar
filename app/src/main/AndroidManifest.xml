@@ -4,6 +4,8 @@
 
     <!-- Разрешение для отправки уведомлений (для Android 13 и выше) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Разрешение для доступа к интернету -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
